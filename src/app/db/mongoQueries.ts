@@ -1,5 +1,5 @@
 import { connectDB } from '@/app/db/mongoConnection';
-import User from '@/app/db/models/User';
+import User from '@/app/db/models/user';
 import Product from '@/app/db/models/product';
 import Review from '@/app/db/models/review';
 import { Product as ProductType, User as UserType } from './types/index'; //importing types
