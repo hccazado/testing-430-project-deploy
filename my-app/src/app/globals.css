@@ -13,11 +13,18 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
-nav, .nav, .navbar a {
+nav,
+.nav,
+.navbar a {
   color: rgb(86, 86, 86);
   background-color: #ffffff;
   list-style-type: none;
   display: flex;
   padding: 5px;
   width: 80px;
+}
+
+form {
+  height: 100%;
+  display: inline-block;
 }

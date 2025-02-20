@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS products (
     price DECIMAL(10,2) NOT NULL,
     image VARCHAR(255),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    owner_id INTEGER REFERENCES users(id)
+    owner_id VARCHAR(50)
 );
 
 CREATE TABLE IF NOT EXISTS reviews (
