@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { connectDB } from '@/app/db/mongoConnection';
-import User from '@/app/db/models/user';
-import Product from '@/app/db/models/product';
-import Review from '@/app/db/models/review';
+import User from '@/app/db/models/user.js';
+import Product from '@/app/db/models/product.js';
+import Review from '@/app/db/models/review.js';
 import { Product as ProductType, User as UserType } from './types/index'; //importing types
 
 export const isRegistered = async (email: string) => {
