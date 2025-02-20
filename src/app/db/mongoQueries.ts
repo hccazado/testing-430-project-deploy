@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { connectDB } from '@/app/db/mongoConnection';
 import User from '@/app/db/models/user';
 import Product from '@/app/db/models/product';
@@ -32,7 +33,7 @@ export const findUser = async (email: string) => {
   }
 };
 
-export const newUser = async (values: UserType): Promise<UserType | null> => {
+export const newUser = async (values: any): Promise<UserType | null> => {
   const data = {
     name: values.name,
     email: values.email,

@@ -1,16 +1,15 @@
-"use server";
-import bcrypt from "bcrypt";
-import { validateCreateUserForm } from "./validations";
-import moment from "moment";
-//import { insertUser, insertSocialUser } from '../db/queries';
-import { redirect } from "next/navigation";
-import { newUser } from "../db/mongoQueries";
-import { signIn } from "../../../auth";
-import { AuthError } from "next-auth";
+'use server';
+import bcrypt from 'bcrypt';
+import { validateCreateUserForm } from './validations';
+import moment from 'moment';
+import { redirect } from 'next/navigation';
+import { newUser } from '../db/mongoQueries';
+import { signIn } from '../../../auth';
+import { AuthError } from 'next-auth';
 
 function getCurrentDate() {
   const date = moment();
-  const currentDate = date.format("MM/DD/YYYY");
+  const currentDate = date.format('MM/DD/YYYY');
   return currentDate;
 }
 
@@ -22,22 +21,25 @@ export async function createUser(
   try {
     const currentDate = getCurrentDate();
     const validationResult = validateCreateUserForm.safeParse({
-      name: formData.get("name"),
-      email: formData.get("email"),
-      password: bcrypt.hashSync(formData.get("password1"), 10),
-      type: "user",
+      name: formData.get('name'),
+      email: formData.get('email'),
+      password: bcrypt.hashSync(<string>formData.get('password1'), 10),
+      type: 'user',
       registration_dt: currentDate,
     });
     if (validationResult.success) {
-      newUser(validationResult.data);
-      redirect("/api/auth/signin");
+      const result = await newUser(validationResult.data);
+      if (!result) {
+        return 'Something went wrong!';
+      }
     } else {
-      return "Invalid New User Data!";
+      return 'Invalid New User Data!';
     }
   } catch (error) {
-    console.log("Create User error: " + error);
-    return "Something went wrong!";
+    console.log('Create User error: ' + error);
+    return 'Something went wrong!';
   }
+  return redirect('/login');
 }
 
 export async function authenticate(
@@ -45,16 +47,17 @@ export async function authenticate(
   formData: FormData
 ) {
   try {
-    await signIn("credentials", formData);
+    await signIn('credentials', formData);
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
-        case "CredentialsSignin":
-          return "Invalid credentials.";
+        case 'CredentialsSignin':
+          return 'Invalid credentials.';
         default:
-          return "Something went wrong.";
+          return 'Something went wrong.';
       }
     }
     throw error;
   }
+  return redirect('/');
 }

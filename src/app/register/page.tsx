@@ -1,20 +1,13 @@
 'use client';
 
 import { useActionState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { createUser } from '@/app/lib/actions';
 
 export default function Register() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
   const [errorMessage, formAction, isPending] = useActionState(
     createUser,
     undefined
   );
-
-  const p = document.createElement('p');
-
-  p.id = 'formValidation';
 
   const formHandler = () => {
     const name = (document.getElementById('name') as HTMLInputElement).value;
@@ -23,11 +16,6 @@ export default function Register() {
       .value;
     const pwd2 = (document.getElementById('password2') as HTMLInputElement)
       .value;
-
-    p.innerHTML =
-      'All fields are required, and password must have 6 characters';
-    p.className = 'text-red-500';
-    document.getElementsByTagName('form')[0].appendChild(p);
 
     if (
       pwd1 == pwd2 &&
@@ -104,7 +92,6 @@ export default function Register() {
             required
             onChange={formHandler}
           ></input>
-          <input type="hidden" name="redirectTo" value={callbackUrl} />
           <button
             className="md:w-full w-80 block border bg-[#F2E9E4] text-[#4A4E69] p-1 rounded-md mt-6 mb-2 w-full enabled:hover:bg-[#4A4E69] enabled:hover:text-[#F2E9E4]"
             disabled

@@ -1,4 +1,4 @@
-import { fetchProducts, fetchReviews } from '../db/queries';
+import { fetchProducts, fetchReviews } from '../db/mongoQueries';
 
 export default async function RatingsReviews() {
   const products = await fetchProducts();

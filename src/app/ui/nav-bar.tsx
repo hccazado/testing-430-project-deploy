@@ -60,10 +60,10 @@ export default async function NavBar() {
           </div>
         ) : (
           <div>
-            <Link href="/login" className="hover:underline">
+            <a href="/login" className="hover:underline">
               <UserIcon className="size-3 inline me-1" />
               Login
-            </Link>
+            </a>
           </div>
         )}
       </nav>

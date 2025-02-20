@@ -2,33 +2,21 @@
 
 import { useActionState } from 'react';
 import { authenticate } from '@/app/lib/actions';
-import { useSearchParams } from 'next/navigation';
 
 export default function Page() {
-  const searchParams = useSearchParams();
-  const callbackUrl = searchParams.get('callbackUrl') || '/';
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined
   );
-
-  const p = document.createElement('p');
-
-  p.id = 'formValidation';
 
   const formHandler = () => {
     const email = (document.getElementById('email') as HTMLInputElement).value;
     const password = (document.getElementById('password') as HTMLInputElement)
       .value;
 
-    p.innerHTML = 'All fields are required';
-    p.className = 'text-red-500';
-    document.getElementsByTagName('form')[0].appendChild(p);
-
     if (password.length >= 6 && email.includes('@')) {
       (document.getElementById('submitBtn') as HTMLInputElement).disabled =
         false;
-      document.getElementById('formValidation')?.remove();
     } else {
       (document.getElementById('submitBtn') as HTMLInputElement).disabled =
         true;
@@ -75,7 +63,6 @@ export default function Page() {
             required
             onChange={() => formHandler()}
           />
-          <input type="hidden" name="redirectTo" value={callbackUrl} />
           <button
             className="md:w-full w-80 block border bg-[#F2E9E4] text-[#4A4E69] p-1 rounded-md mt-6 mb-2 w-full enabled:hover:bg-[#4A4E69] enabled:hover:text-[#F2E9E4]"
             disabled
