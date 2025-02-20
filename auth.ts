@@ -8,7 +8,7 @@ import { z } from 'zod';
 declare module 'next-auth' {
   interface User {
     // Add your additional properties here:
-    id?: string | null;
+    id?: string | undefined;
     type?: string | null;
   }
 }
@@ -16,8 +16,8 @@ declare module 'next-auth' {
 declare module '@auth/core/adapters' {
   interface AdapterUser {
     // Add your additional properties here:
-    id: string | null;
-    type: string | null;
+    id: string;
+    type: string;
   }
 }
 
@@ -33,7 +33,7 @@ export const {
   },
   providers: [
     Credentials({
-      async authorize(credentials) {
+      async authorize(credentials): Promise<any | null> {
         const parsedCredentials = z
           .object({ email: z.string().email(), password: z.string().min(6) })
           .safeParse(credentials);

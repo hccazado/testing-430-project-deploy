@@ -30,7 +30,7 @@
     "**/*.tsx",
     "next.config.js",
     ".next/types/**/*.ts",
-    "middleware.tjs"
+    "auth.js"
   ],
   "exclude": ["node_modules"]
 }

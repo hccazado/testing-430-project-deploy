@@ -1,18 +1,18 @@
-import "next-auth"
-import { DefaultSession } from "next-auth"
+import 'next-auth';
+import { DefaultSession } from 'next-auth';
 
-declare module "next-auth" {
+declare module 'next-auth' {
   interface User {
-    type?: string | null
-    id?: string | null
+    type?: string | null;
+    id?: string;
     // add other custom properties here
   }
 
-  interface Session {
+  export interface Session {
     user: {
-      type?: string
-      id?: string
+      type?: string;
+      id?: string;
       // add other custom properties here
-    } & DefaultSession["user"]
+    } & DefaultSession['user'];
   }
 }
